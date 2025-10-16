@@ -1,0 +1,1253 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Joseph Aloyce - Portfolio</title>
+    <link rel="icon" href="/icons/cj_favicon_scaled_48x48.png">
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: { primary: "#8B5CF6", secondary: "#6366F1" },
+            borderRadius: {
+              none: "0px",
+              sm: "4px",
+              DEFAULT: "8px",
+              md: "12px",
+              lg: "16px",
+              xl: "20px",
+              "2xl": "24px",
+              "3xl": "32px",
+              full: "9999px",
+              button: "8px",
+            },
+          },
+        },
+      };
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css"
+    />
+    <style>
+      :where([class^="ri-"])::before { content: "\f3c2"; }
+      .nav-link {
+        position: relative;
+        color: rgba(255, 255, 255, 0.7);
+        transition: color 0.3s ease;
+      }
+      #contactModal{
+        display:none;
+      }
+      .nav-link::after {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: theme('colors.primary');
+        transition: width 0.3s ease;
+      }
+      .nav-link:hover, .nav-link.active {
+        color: white;
+      }
+      .nav-link:hover::after, .nav-link.active::after {
+        width: 100%;
+      }
+      .mobile-nav-link {
+        font-size: 1.25rem;
+        color: rgba(255, 255, 255, 0.7);
+        transition: all 0.3s ease;
+      }
+      .mobile-nav-link:hover, .mobile-nav-link.active {
+        color: white;
+        transform: translateX(8px);
+      }
+      :root {
+      --dark-bg: #121212;
+      --card-bg: rgba(30, 30, 30, 0.7);
+      --glass-bg: rgba(40, 40, 40, 0.3);
+      --glass-border: rgba(255, 255, 255, 0.1);
+      }
+      :root {
+  --primary: #4caf50;
+  --secondary: #81c784;
+}
+     
+      
+      .e-card {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 90%;
+      max-width: 400px;
+      background: rgba(30, 30, 30, 0.95);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(139, 92, 246, 0.3);
+      border-radius: 16px;
+      padding: 24px;
+      z-index: 1000;
+      display: none;
+      }
+      .e-card.show {
+      display: block;
+      animation: cardFadeIn 0.3s ease forwards;
+      }
+      
+      .e-card-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(5px);
+      z-index: 999;
+      display: none;
+      }
+      .e-card-overlay.show {
+      display: block;
+      }
+      @keyframes cardFadeIn {
+      from {
+      opacity: 0;
+      transform: translate(-50%, -48%);
+      }
+      to {
+      opacity: 1;
+      transform: translate(-50%, -50%);
+      }
+      }
+      @media (max-width: 768px) {
+      .container {
+      padding: 16px;
+      }
+      .grid {
+      grid-template-columns: 1fr;
+      }
+      .glassmorphism {
+      margin: 0;
+      padding: 16px;
+      }
+      }
+      body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--dark-bg);
+      color: #fff;
+      overflow: auto;
+      }
+      .glassmorphism {
+      background: var(--glass-bg);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--glass-border);
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+      }
+      .card {
+      background: var(--card-bg);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--glass-border);
+      }
+      .viewport {
+      /*perspective: 1000px;
+      transform-style:;*/
+      
+      width: 100vw;
+     /* position: relative;*/
+      overflow: auto;
+      }
+      /*.slide-container {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      transform-style: preserve-3d;
+      transition: transform 0.8s cubic-bezier(0.65, 0.05, 0.36, 1);
+      }*/
+      /*.slide {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      visibility: hidden;
+      opacity: 1;
+      transition: opacity 0.4s ease;
+      }
+      .slide.active {
+      visibility: visible;
+      opacity: 1;
+      }*/
+      /* .slide:nth-child(1) { transform: rotateY(0deg) translateZ(0); }
+      .slide:nth-child(2) { transform: rotateY(90deg) translateZ(50vw); }
+      .slide:nth-child(3) { transform: rotateY(180deg) translateZ(0); }
+      .slide:nth-child(4) { transform: rotateY(270deg) translateZ(50vw); } */
+      .fade-in {
+      animation: fadeIn 0.8s ease forwards;
+      }
+      .slide-up {
+      animation: slideUp 0.8s ease forwards;
+      }
+      @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+      }
+      @keyframes slideUp {
+      from {
+      opacity: 0;
+      transform: translateY(30px);
+      }
+      to {
+      opacity: 1;
+      transform: translateY(0);
+      }
+      }
+      .nav-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.3);
+      transition: all 0.3s ease;
+      }
+      .nav-dot.active {
+      background: var(--glass-border);
+      transform: scale(1.3);
+      }
+      .nav-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 100;
+      cursor: pointer;
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: full;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      transition: all 0.3s ease;
+      }
+      .nav-arrow:hover {
+      background: rgba(0, 0, 0, 0.5);
+      }
+      .nav-arrow.left {
+      left: 20px;
+      }
+      .nav-arrow.right {
+      right: 20px;
+      }*/
+      .progress-bar {
+      height: 3px;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      transition: width 0.3s ease;
+      }
+      .parallax-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      z-index: -1;
+      /* transform: translateZ(-10px) scale(2); */
+      }
+
+      /* * {
+  outline: 1px solid red; /* highlight every element } */
+/* .viewport {
+  overflow-x: hidden;
+} */
+
+
+      .skill-bar {
+      height: 8px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+      overflow: hidden;
+      }
+      .skill-progress {
+      height: 100%;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      border-radius: 4px;
+      transition: width 1s ease;
+      }
+      #home{
+        margin-top: 10vh
+      }
+      @media (max-width: 768px) {
+      .slide:nth-child(1) { transform: rotateY(0deg) translateZ(0); }
+      .slide:nth-child(2) { transform: rotateY(90deg) translateZ(50vw); }
+      .slide:nth-child(3) { transform: rotateY(180deg) translateZ(0); }
+      .slide:nth-child(4) { transform: rotateY(270deg) translateZ(50vw); }
+      }
+    </style>
+  </head>
+  <body >
+    <div class="viewport"             
+>
+       <!-- <button
+        class="scroll-lock-btn"
+        id="scrollLockBtn"
+        title="Toggle scroll lock"
+      >
+        <i class="ri-lock-unlock-line text-xl lock-icon"></i>
+      </button>  -->
+      <nav
+        class="fixed top-0 left-0 right-0 z-50 bg-black/20 backdrop-blur-lg border-b border-white/10"
+      >
+        <div class="container mx-auto px-6">
+          <div class="flex justify-between items-center h-16">
+            <a href="#" class="text-2xl font-['Jokerman']">Cjdreamy</a>
+            <div class="hidden md:flex items-center gap-6">
+              <a href="#home" class="nav-link active">Home</a>
+              <a href="#bio" class="nav-link">About</a>
+              <a href="#projects" class="nav-link">Projects</a>
+              <a href="#skills" class="nav-link">Skills</a>
+              <button
+                id="contactBtn"
+                class="bg-primary hover:bg-opacity-80 text-white px-4 py-2 rounded-button flex items-center gap-2"
+              >
+                <i class="ri-mail-line"></i> Contact Me
+              </button>
+            </div>
+            <button class="md:hidden text-2xl" id="menuBtn">
+              <i class="ri-menu-line"></i>
+            </button>
+          </div>
+        </div>
+      </nav>
+      <!-- Mobile Menu -->
+      <div
+        class="fixed inset-0 bg-black/95 backdrop-blur-lg z-50 transition-transform duration-300 transform translate-x-full"
+        id="mobileMenu"
+      >
+        <div class="flex flex-col h-full">
+          <div
+            class="flex justify-between items-center p-6 border-b border-white/10"
+          >
+            <span class="text-2xl font-['Pacifico']">CjDreamy</span>
+            <button class="text-2xl" id="closeMenuBtn">
+              <i class="ri-close-line"></i>
+            </button>
+          </div>
+          <div class="flex flex-col p-6 gap-6">
+            <a href="#home" class="mobile-nav-link active">Home</a>
+            <a href="#bio" class="mobile-nav-link">About</a>
+            <a href="#projects" class="mobile-nav-link">Projects</a>
+            <a href="#skills" class="mobile-nav-link">Skills</a>
+          </div>
+          <div class="mt-auto p-6 border-t border-white/10">
+            <button
+              id="mobileContactBtn"
+              class="w-full bg-primary hover:bg-opacity-80 text-white px-4 py-3 rounded-button flex items-center justify-center gap-2"
+            >
+              <i class="ri-mail-line"></i> Contact Me
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- Contact Form Modal -->
+      <div 
+        class="fixed inset-0 bg-black/80 backdrop-blur-lg z-[60] "
+        id="contactModal"
+      >
+        <div class="min-h-screen flex items-center justify-center p-6">
+          <div class="bg-[#1a1a1a] rounded-lg w-full max-w-lg p-8 relative">
+            <button
+              class="absolute right-4 top-4 text-gray-400 hover:text-white"
+              id="closeContactModal"
+            >
+              <i class="ri-close-line text-2xl"></i>
+            </button>
+            <h3 class="text-2xl font-semibold mb-6">Let's Connect</h3>
+            <form id="contactForm" class="space-y-6">
+              <div>
+                <label class="block text-sm font-medium mb-2">Name</label>
+                <input
+                  type="text"
+                  name="name"
+                  required
+                  class="w-full bg-black/50 border border-white/10 rounded-lg px-4 py-2 focus:outline-none focus:border-primary"
+                />
+              </div>
+              <div>
+                <label class="block text-sm font-medium mb-2">Email</label>
+                <input
+                  type="email"
+                  name="email"
+                  required
+                  class="w-full bg-black/50 border border-white/10 rounded-lg px-4 py-2 focus:outline-none focus:border-primary"
+                />
+              </div>
+              <div>
+                <label class="block text-sm font-medium mb-2">Message</label>
+                <textarea
+                  name="message"
+                  rows="4"
+                  required
+                  class="w-full bg-black/50 border border-white/10 rounded-lg px-4 py-2 focus:outline-none focus:border-primary"
+                ></textarea>
+              </div>
+              <button
+                type="submit"
+                class="w-full bg-primary hover:bg-opacity-80 text-white px-6 py-3 rounded-button flex items-center justify-center gap-2"
+              >
+                <i class="ri-send-plane-line"></i> Send Message
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="slide-container" id="slideContainer">
+
+        <!-- Home Slide -->
+        <section class="slide active" id="home"             
+>
+          <div
+            class="parallax-bg"
+                    style="background-image: url('https://readdy.ai/api/search-image?query=abstract%20dark%20technology%20background%20with%20glowing%20purple%20and%20blue%20particles%2C%20modern%20digital%20tech%20aesthetic%2C%20perfect%20for%20a%20developer%20portfolio&width=1920&height=1080&seq=1&orientation=landscape');"
+
+          ></div>
+          <div
+            class="container mx-auto px-6 h-full flex flex-col justify-center"
+          >
+            <div class="glassmorphism rounded-lg p-8 max-w-3xl mx-auto">
+              <div class="flex flex-col md:flex-row items-center gap-8">
+                <div
+                  class="w-32 h-32 rounded-full overflow-hidden border-4 border-primary"
+                >
+                  <img
+                    src="/images/portfolio_coverp.jpg"
+                    alt="Joseph Aloyce"
+                    class="w-full h-full object-cover"
+                  />
+                </div>
+                <div>
+                  <h1
+                    class="text-4xl font-bold mb-2 fade-in"
+                    style="animation-delay: 0.2s"
+                  >
+                    Joseph Aloyce
+                  </h1>
+                  <p
+                    class="text-xl text-gray-300 mb-4 fade-in"
+                    style="animation-delay: 0.4s"
+                  >
+                    Full Stack Developer & UI/UX Designer
+                  </p>
+                  <p
+                    class="text-gray-400 mb-6 fade-in"
+                    style="animation-delay: 0.6s"
+                  >
+                    Crafting digital experiences that blend creativity with
+                    functionality. Passionate about clean code and intuitive
+                    design.
+                  </p>
+                  <div class="flex gap-3 fade-in" style="animation-delay: 0.8s">
+                    <a
+                      href="#"
+                      class="bg-primary hover:bg-opacity-80 text-white px-6 py-2 rounded-button flex items-center gap-2 whitespace-nowrap transition-all"
+                    >
+                      <i class="ri-download-line"></i> Download CV
+                    </a>
+                    <a
+                      href="#"
+                      class="border border-white/20 hover:border-white/40 px-6 py-2 rounded-button flex items-center gap-2 whitespace-nowrap transition-all"
+                    >
+                      <i class="ri-mail-line" ></i> <button id="contabutn">Contact Me</button>
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="mt-8 flex flex-wrap justify-center gap-4 fade-in"
+                style="animation-delay: 1s"
+              >
+                <a
+                  href="https://github.com/cjdreamy target='_blank' rel='noopener noreferrer"
+                  class="w-10 h-10 flex items-center justify-center rounded-full bg-white/10 hover:bg-primary transition-all"
+                >
+                  <i class="ri-github-fill"></i>
+                </a>
+                <a
+                  href="https://linkedin.com/in/josephconstantine target='_blank' rel='noopener noreferrer"
+                  class="w-10 h-10 flex items-center justify-center rounded-full bg-white/10 hover:bg-primary transition-all"
+                >
+                  <i class="ri-linkedin-fill"></i>
+                </a>
+                <a
+                  href="https://instagram.com/cjdreamy target='_blank' rel='noopener noreferrer" 
+                  class="w-10 h-10 flex items-center justify-center rounded-full bg-white/10 hover:bg-primary transition-all"
+                >
+                  <i class="ri-twitter-x-fill"></i>
+                </a>
+                <a
+                  href="https://dribbble.com/josephalocye402 target='_blank' rel='noopener noreferrer"
+                  class="w-10 h-10 flex items-center justify-center rounded-full bg-white/10 hover:bg-primary transition-all"
+                >
+                  <i class="ri-dribbble-fill"></i>
+                </a>
+              </div>
+              <div class="mt-8 text-center">
+                <p class="text-gray-400 mb-2">Portfolio Views</p>
+                <div class="flex justify-center items-center gap-3">
+                  <span class="text-2xl font-bold" id="viewCount">1,254</span>
+                  <button
+                    id="incrementBtn"
+                    class="bg-white/10 hover:bg-white/20 p-2 rounded-full transition-all"
+                  >
+                    <i class="ri-heart-fill text-red-500"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="text-center mt-8 text-gray-400">
+               <p><button id="ecardshow">Get my E-BussinessCard</button></p>
+              <!--<div class="flex justify-center mt-2">
+                <i class="ri-arrow-left-line mr-4"></i>
+                <i class="ri-arrow-right-line"></i> -->
+              </div>
+            </div>
+          </div>
+        </section>
+        <!-- Bio Slide -->
+        <section class="slide active" id="bio"                     
+>
+          <div
+            class="parallax-bg"
+            
+
+          ></div>
+          <div class="container mx-auto px-6 h-full overflow-y-auto py-12">
+            <div class="glassmorphism rounded-lg p-8 max-w-4xl mx-auto">
+              <h2 class="text-3xl font-bold mb-6 border-b border-white/10 pb-4">
+                About Me
+              </h2>
+              <div class="grid md:grid-cols-2 gap-8">
+                <div>
+                  <p
+                    class="text-gray-300 mb-4 slide-up"
+                    style="animation-delay: 0.2s"
+                  >
+                    I'm Joseph Aloyce, a passionate Full Stack Developer with
+                    over 3 years of experience building web and mobile
+                    applications that solve real-world problems.
+                  </p>
+                  <p
+                    class="text-gray-300 mb-4 slide-up"
+                    style="animation-delay: 0.4s"
+                  >
+                    My journey in tech began when I built my first website at
+                    16. Since then, I've been obsessed with creating digital
+                    experiences that are both beautiful and functional.
+                  </p>
+                  <p
+                    class="text-gray-300 slide-up"
+                    style="animation-delay: 0.6s"
+                  >
+                    When I'm not coding, you'll find me exploring new
+                    technologies, contributing to open-source projects, or
+                    mentoring aspiring developers.
+                  </p>
+                  <div class="mt-6 slide-up" style="animation-delay: 0.8s">
+                    <h3 class="text-xl font-semibold mb-3">Education</h3>
+                    <div class="mb-4">
+                      <p class="font-medium">Bsc in Computer Science</p>
+                      <p class="text-gray-400">
+                        Jomo Kenyatta University of Agriculture & Technology, 2025-2029
+                      </p>
+                    </div>
+                    <div>
+                      <p class="font-medium">High School (KCSE)</p>
+                      <p class="text-gray-400">
+                        Murang'a High, 2021-2024
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <div class="slide-up" style="animation-delay: 0.3s">
+                    <h3 class="text-xl font-semibold mb-3">Work Experience</h3>
+                    <div class="mb-4">
+                      <p class="font-medium">Cash & Cheque Clearance</p>
+                      <p class="text-gray-400">
+                        Equity Bank Kenya Plc, 14/2/2025 - 29/7/2025
+                      </p>
+                      <ul class="list-disc list-inside text-gray-300 mt-2">
+                        <li>
+                          Collaborated in open Source Project
+                        </li>
+                        <li>
+                          Implemented CI/CD pipeline reducing deployment time by
+                          40%
+                        </li>
+                        <li>
+                          Optimized app performance increasing page load speed
+                          by 60%
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="slide-up" style="animation-delay: 0.5s">
+                      <p class="font-medium">Full Stack Developer</p>
+                      <p class="text-gray-400">
+                        Freelancer, 2025-Present
+                      </p>
+                      <ul class="list-disc list-inside text-gray-300 mt-2">
+                        <li>
+                          Developed and maintained multiple client websites
+                        </li>
+                        <li>Created RESTful APIs for mobile applications</li>
+                        <li>
+                          Implemented responsive designs for cross-platform
+                          compatibility
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="mt-6 slide-up" style="animation-delay: 0.7s">
+                    <h3 class="text-xl font-semibold mb-3">Languages</h3>
+                    <div class="flex gap-3 flex-wrap">
+                      <span class="px-3 py-1 bg-white/10 rounded-full"
+                        >English (Native)</span
+                      >
+                      <span class="px-3 py-1 bg-white/10 rounded-full"
+                        >Swahili (Fluent)</span
+                      >
+                      <span class="px-3 py-1 bg-white/10 rounded-full"
+                        >French (Intermediate)</span
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <!-- Projects Slide -->
+        <section class="slide " id="projects"           
+        style="background-image: url('https://readdy.ai/api/search-image?query=abstract%20dark%20technology%20background%20with%20digital%20grid%20patterns%20and%20glowing%20elements%2C%20professional%20tech%20aesthetic%20for%20project%20showcase%2C%20dark%20theme%20with%20subtle%20purple%20and%20blue%20accents&width=1920&height=1080&seq=4&orientation=landscape');"
+>
+          <div
+            class="parallax-bg"
+          ></div>
+          <div class="container mx-auto px-6 py-12 h-full overflow-y-auto">
+            <div class="glassmorphism rounded-lg p-8 max-w-6xl mx-auto">
+              <h2 class="text-3xl font-bold mb-8 border-b border-white/10 pb-4">
+                My Projects
+              </h2>
+              <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Project 1 -->
+                <div
+                  class="card rounded-lg overflow-hidden hover:transform hover:scale-105 transition-all fade-in"
+                  style="animation-delay: 0.2s"
+                >
+                  <div class="h-48 overflow-hidden">
+                                        <div class="w-full h-48 overflow-hidden rounded-xl group">
+
+                    <img
+                      src="https://readdy.ai/api/search-image?query=modern%20e-commerce%20website%20interface%20with%20dark%20theme%2C%20professional%20UI%20design%2C%20product%20showcase%20with%20clean%20layout%20and%20elegant%20typography&width=600&height=400&seq=5&orientation=landscape"
+                      alt="E-commerce Platform"
+                      class="w-full h-full object-cover transition duration-500 group-hover:grayscale"
+                    />
+
+
+                     <!-- Overlay with text -->
+  <div class="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 transition duration-500 group-hover:opacity-100">
+    <span class="text-white text-xl font-semibold">Coming Soon</span>
+  </div>
+</div>
+                  </div>
+                  <div class="p-5">
+                    <h3 class="text-xl font-semibold mb-2">
+                      E-commerce Platform
+                    </h3>
+                    <p class="text-gray-400 mb-4">
+                      A full-featured online store with payment integration,
+                      inventory management, and analytics dashboard.
+                    </p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                      <span class="px-2 py-1 text-xs bg-white/10 rounded-full"
+                        >React</span
+                      >
+                      <span class="px-2 py-1 text-xs bg-white/10 rounded-full"
+                        >Node.js</span
+                      >
+                      <span class="px-2 py-1 text-xs bg-white/10 rounded-full"
+                        >MongoDB</span
+                      >
+                    </div>
+                    <div class="flex justify-between">
+                      <a
+                        href="#"
+                        class="text-primary hover:text-opacity-80 flex items-center gap-1"
+                      >
+                        <i class="ri-github-fill"></i> Code
+                      </a>
+                      <a
+                        href="#"
+                        class="text-primary hover:text-opacity-80 flex items-center gap-1"
+                      >
+                        <i class="ri-external-link-line"></i> Live Demo
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                <!-- Project 2 -->
+                <div
+                  class="card rounded-lg overflow-hidden hover:transform hover:scale-105 transition-all fade-in"
+                  style="animation-delay: 0.4s"
+                >
+                  <div class="overflow-hidden">
+                    <div class="w-full h-48 overflow-hidden rounded-xl group">
+                    <img
+                      src="https://readdy.ai/api/search-image?query=mobile%20app%20interface%20for%20fitness%20tracking%20with%20dark%20theme%2C%20workout%20statistics%2C%20progress%20charts%2C%20clean%20modern%20UI%20design%20with%20purple%20accents&width=600&height=400&seq=6&orientation=landscape"
+                      alt="Fitness Tracker App"
+                      class="w-full h-full object-cover transition duration-500 group-hover:grayscale"
+                    />
+
+                    <!-- Overlay with text -->
+  <div class="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 transition duration-500 group-hover:opacity-100">
+    <span class="text-white text-xl font-semibold">Coming Soon</span>
+  </div>
+</div>
+                  </div>
+                  <div class="p-5">
+                    <h3 class="text-xl font-semibold mb-2">
+                      Fitness Tracker App
+                    </h3>
+                    <p class="text-gray-400 mb-4">
+                      Mobile application for tracking workouts, nutrition, and
+                      health metrics with personalized recommendations.
+                    </p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                      <span class="px-2 py-1 text-xs bg-white/10 rounded-full"
+                        >Flutter</span
+                      >
+                      <span class="px-2 py-1 text-xs bg-white/10 rounded-full"
+                        >Firebase</span
+                      >
+                      <span class="px-2 py-1 text-xs bg-white/10 rounded-full"
+                        >TensorFlow</span
+                      >
+                    </div>
+                    <div class="flex justify-between">
+                      <a
+                        href="#"
+                        class="text-primary hover:text-opacity-80 flex items-center gap-1"
+                      >
+                        <i class="ri-github-fill"></i> Code
+                      </a>
+                      <a
+                        href="#"
+                        class="text-primary hover:text-opacity-80 flex items-center gap-1"
+                      >
+                        <i class="ri-external-link-line"></i> Live Demo
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                <!-- Project 3 -->
+                <div
+                  class="card rounded-lg overflow-hidden hover:transform hover:scale-105 transition-all fade-in"
+                  style="animation-delay: 0.6s"
+                >
+                  <div class="h-48 overflow-hidden">
+                                        <div class="w-full h-48 overflow-hidden rounded-xl group">
+
+                    <img
+                      src="https://readdy.ai/api/search-image?query=AI%20chatbot%20interface%20with%20dark%20theme%2C%20conversation%20flow%2C%20natural%20language%20processing%20visualization%2C%20modern%20tech%20UI%20with%20blue%20and%20purple%20accents&width=600&height=400&seq=7&orientation=landscape"
+                      alt="AI Chatbot"
+                      class="w-full h-full object-cover transition duration-500 group-hover:grayscale"
+                    />
+
+                     <!-- Overlay with text -->
+  <div class="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 transition duration-500 group-hover:opacity-100">
+    <span class="text-white text-xl font-semibold">Coming Soon</span>
+  </div>
+</div>
+                  </div>
+                  <div class="p-5">
+                    <h3 class="text-xl font-semibold mb-2">
+                      AI Chatbot Assistant
+                    </h3>
+                    <p class="text-gray-400 mb-4">
+                      Intelligent virtual assistant with natural language
+                      processing capabilities for customer support.
+                    </p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                      <span class="px-2 py-1 text-xs bg-white/10 rounded-full"
+                        >Python</span
+                      >
+                      <span class="px-2 py-1 text-xs bg-white/10 rounded-full"
+                        >NLP</span
+                      >
+                      <span class="px-2 py-1 text-xs bg-white/10 rounded-full"
+                        >AWS</span
+                      >
+                    </div>
+                    <div class="flex justify-between">
+                      <a
+                        href="#"
+                        class="text-primary hover:text-opacity-80 flex items-center gap-1"
+                      >
+                        <i class="ri-github-fill"></i> Code
+                      </a>
+                      <a
+                        href="#"
+                        class="text-primary hover:text-opacity-80 flex items-center gap-1"
+                      >
+                        <i class="ri-external-link-line"></i> Live Demo
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                <!-- Project 4 -->
+                <div
+                  class="card rounded-lg overflow-hidden hover:transform hover:scale-105 transition-all fade-in"
+                  style="animation-delay: 0.8s"
+                >
+                  <div class="h-48 overflow-hidden">
+                                        <div class="w-full h-48 overflow-hidden rounded-xl group">
+
+                    <img
+                      src="https://readdy.ai/api/search-image?query=blockchain%20dashboard%20interface%20with%20dark%20theme%2C%20cryptocurrency%20analytics%2C%20transaction%20visualization%2C%20modern%20tech%20UI%20with%20blue%20and%20purple%20gradients&width=600&height=400&seq=8&orientation=landscape"
+                      alt="Crypto Dashboard"
+                      class="w-full h-full object-cover transition duration-500 group-hover:grayscale"
+                    />
+
+
+                     <!-- Overlay with text -->
+  <div class="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 transition duration-500 group-hover:opacity-100">
+    <span class="text-white text-xl font-semibold">Coming Soon</span>
+  </div>
+</div>
+                  </div>
+                  <div class="p-5">
+                    <h3 class="text-xl font-semibold mb-2">Crypto Dashboard</h3>
+                    <p class="text-gray-400 mb-4">
+                      Real-time cryptocurrency tracking platform with portfolio
+                      management and market analysis tools.
+                    </p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                      <span class="px-2 py-1 text-xs bg-white/10 rounded-full"
+                        >Vue.js</span
+                      >
+                      <span class="px-2 py-1 text-xs bg-white/10 rounded-full"
+                        >Express</span
+                      >
+                      <span class="px-2 py-1 text-xs bg-white/10 rounded-full"
+                        >Web3.js</span
+                      >
+                    </div>
+                    <div class="flex justify-between">
+                      <a
+                        href="#"
+                        class="text-primary hover:text-opacity-80 flex items-center gap-1"
+                      >
+                        <i class="ri-github-fill"></i> Code
+                      </a>
+                      <a
+                        href="#"
+                        class="text-primary hover:text-opacity-80 flex items-center gap-1"
+                      >
+                        <i class="ri-external-link-line"></i> Live Demo
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                <!-- Project 5 -->
+                <div
+                  class="card rounded-lg overflow-hidden hover:transform hover:scale-105 transition-all fade-in"
+                  style="animation-delay: 1s"
+                >
+                  <div class="h-48 overflow-hidden">
+                                        <div class="w-full h-48 overflow-hidden rounded-xl group">
+
+                    <img
+                      src="https://readdy.ai/api/search-image?query=smart%20home%20control%20panel%20interface%20with%20dark%20theme%2C%20IoT%20device%20management%2C%20home%20automation%20dashboard%2C%20modern%20tech%20UI%20with%20purple%20and%20blue%20elements&width=600&height=400&seq=9&orientation=landscape"
+                      alt="Smart Home System"
+                      class="w-full h-full object-cover transition duration-500 group-hover:grayscale"
+                    />
+
+
+                     <!-- Overlay with text -->
+  <div class="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 transition duration-500 group-hover:opacity-100">
+    <span class="text-white text-xl font-semibold">Coming Soon</span>
+  </div>
+</div>
+                  </div>
+                  <div class="p-5">
+                    <h3 class="text-xl font-semibold mb-2">
+                      Smart Home System
+                    </h3>
+                    <p class="text-gray-400 mb-4">
+                      IoT-based home automation platform for controlling lights,
+                      temperature, security, and entertainment systems.
+                    </p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                      <span class="px-2 py-1 text-xs bg-white/10 rounded-full"
+                        >React Native</span
+                      >
+                      <span class="px-2 py-1 text-xs bg-white/10 rounded-full"
+                        >IoT</span
+                      >
+                      <span class="px-2 py-1 text-xs bg-white/10 rounded-full"
+                        >GraphQL</span
+                      >
+                    </div>
+                    <div class="flex justify-between">
+                      <a
+                        href="#"
+                        class="text-primary hover:text-opacity-80 flex items-center gap-1"
+                      >
+                        <i class="ri-github-fill"></i> Code
+                      </a>
+                      <a
+                        href="#"
+                        class="text-primary hover:text-opacity-80 flex items-center gap-1"
+                      >
+                        <i class="ri-external-link-line"></i> Live Demo
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                <!-- Project 6 -->
+                <div
+                  class="card rounded-lg overflow-hidden hover:transform hover:scale-105 transition-all fade-in"
+                  style="animation-delay: 1.2s"
+                >
+                  <div class="h-48 overflow-hidden">
+                                        <div class="w-full h-48 overflow-hidden rounded-xl group">
+
+                    <img
+                      src="https://readdy.ai/api/search-image?query=augmented%20reality%20education%20app%20interface%20with%20dark%20theme%2C%203D%20learning%20models%2C%20interactive%20educational%20content%2C%20modern%20tech%20UI%20with%20purple%20and%20blue%20highlights&width=600&height=400&seq=10&orientation=landscape"
+                      alt="AR Learning Platform"
+                      class="w-full h-full object-cover transition duration-500 group-hover:grayscale"
+                    />
+
+
+                     <!-- Overlay with text -->
+  <div class="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 transition duration-500 group-hover:opacity-100">
+    <span class="text-white text-xl font-semibold">Coming Soon</span>
+  </div>
+</div>
+                  </div>
+                  <div class="p-5">
+                    <h3 class="text-xl font-semibold mb-2">
+                      AR Learning Platform
+                    </h3>
+                    <p class="text-gray-400 mb-4">
+                      Augmented reality application for interactive educational
+                      content with 3D models and gamified learning experiences.
+                    </p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                      <span class="px-2 py-1 text-xs bg-white/10 rounded-full"
+                        >Unity</span
+                      >
+                      <span class="px-2 py-1 text-xs bg-white/10 rounded-full"
+                        >ARKit</span
+                      >
+                      <span class="px-2 py-1 text-xs bg-white/10 rounded-full"
+                        >C#</span
+                      >
+                    </div>
+                    <div class="flex justify-between">
+                      <a
+                        href="#"
+                        class="text-primary hover:text-opacity-80 flex items-center gap-1"
+                      >
+                        <i class="ri-github-fill"></i> Code
+                      </a>
+                      <a
+                        href="#"
+                        class="text-primary hover:text-opacity-80 flex items-center gap-1"
+                      >
+                        <i class="ri-external-link-line"></i> Live Demo
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <!-- Skills Slide -->
+        <section class="slide" id="skills"         
+        style="backgroun-image: url('https://readdy.ai/api/search-image?query=abstract%20dark%20technology%20background%20with%20digital%20grid%20patterns%20and%20glowing%20elements%2C%20professional%20tech%20aesthetic%20for%20project%20showcase%2C%20dark%20theme%20with%20subtle%20purple%20and%20blue%20accents&width=1920&height=1080&seq=4&orientation=landscape');"
+ >
+          <div
+            class="parallax-bg"
+          ></div>
+          <div
+            class="container mx-auto px-6 h-full flex flex-col justify-center"
+          >
+            <div class="glassmorphism rounded-lg p-8 max-w-4xl mx-auto">
+              <h2 class="text-3xl font-bold mb-8 border-b border-white/10 pb-4">
+                Skills & Expertise
+              </h2>
+              <div class="grid md:grid-cols-2 gap-8">
+                <div>
+                  <h3
+                    class="text-xl font-semibold mb-6 slide-up"
+                    style="animation-delay: 0.2s"
+                  >
+                    Technical Skills
+                  </h3>
+                  <div class="space-y-6">
+                    <div class="slide-up" style="animation-delay: 0.3s">
+                      <div class="flex justify-between mb-2">
+                        <span>JavaScript/TypeScript</span>
+                        <span>95%</span>
+                      </div>
+                      <div class="skill-bar">
+                        <div class="skill-progress" style="width: 95%"></div>
+                      </div>
+                    </div>
+                    <div class="slide-up" style="animation-delay: 0.4s">
+                      <div class="flex justify-between mb-2">
+                        <span>React/Next.js</span>
+                        <span>40%</span>
+                      </div>
+                      <div class="skill-bar">
+                        <div class="skill-progress" style="width: 40%"></div>
+                      </div>
+                    </div>
+                    <div class="slide-up" style="animation-delay: 0.5s">
+                      <div class="flex justify-between mb-2">
+                        <span>Node.js/Express</span>
+                        <span>90%</span>
+                      </div>
+                      <div class="skill-bar">
+                        <div class="skill-progress" style="width: 90%"></div>
+                      </div>
+                    </div>
+                    <div class="slide-up" style="animation-delay: 0.6s">
+                      <div class="flex justify-between mb-2">
+                        <span>Python/Django</span>
+                        <span>80%</span>
+                      </div>
+                      <div class="skill-bar">
+                        <div class="skill-progress" style="width: 80%"></div>
+                      </div>
+                    </div>
+                    <div class="slide-up" style="animation-delay: 0.7s">
+                      <div class="flex justify-between mb-2">
+                        <span>SQL/NoSQL Databases</span>
+                        <span>85%</span>
+                      </div>
+                      <div class="skill-bar">
+                        <div class="skill-progress" style="width: 85%"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <h3
+                    class="text-xl font-semibold mb-6 slide-up"
+                    style="animation-delay: 0.2s"
+                  >
+                    Design & Other Skills
+                  </h3>
+                  <div class="space-y-6">
+                    <div class="slide-up" style="animation-delay: 0.3s">
+                      <div class="flex justify-between mb-2">
+                        <span>UI/UX Design</span>
+                        <span>85%</span>
+                      </div>
+                      <div class="skill-bar">
+                        <div class="skill-progress" style="width: 85%"></div>
+                      </div>
+                    </div>
+                    <div class="slide-up" style="animation-delay: 0.4s">
+                      <div class="flex justify-between mb-2">
+                        <span>Figma/Adobe XD</span>
+                        <span>60%</span>
+                      </div>
+                      <div class="skill-bar">
+                        <div class="skill-progress" style="width: 60%"></div>
+                      </div>
+                    </div>
+                    <div class="slide-up" style="animation-delay: 0.5s">
+                      <div class="flex justify-between mb-2">
+                        <span>DevOps/CI/CD</span>
+                        <span>65%</span>
+                      </div>
+                      <div class="skill-bar">
+                        <div class="skill-progress" style="width: 65%"></div>
+                      </div>
+                    </div>
+                    <div class="slide-up" style="animation-delay: 0.6s">
+                      <div class="flex justify-between mb-2">
+                        <span>Cloud Services (AWS/GCP)</span>
+                        <span>55%</span>
+                      </div>
+                      <div class="skill-bar">
+                        <div class="skill-progress" style="width: 55%"></div>
+                      </div>
+                    </div>
+                    <div class="slide-up" style="animation-delay: 0.7s">
+                      <div class="flex justify-between mb-2">
+                        <span>Mobile Development</span>
+                        <span>69%</span>
+                      </div>
+                      <div class="skill-bar">
+                        <div class="skill-progress" style="width: 69%"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="mt-12 slide-up" style="animation-delay: 0.8s">
+                <h3 class="text-xl font-semibold mb-6">
+                  Technologies I Work With
+                </h3>
+                <div class="flex flex-wrap gap-4">
+                  <div
+                    class="px-4 py-3 bg-white/10 rounded-lg flex items-center gap-2"
+                  >
+                    <i class="ri-reactjs-line text-blue-400"></i>
+                    <span>React</span>
+                  </div>
+                  <div
+                    class="px-4 py-3 bg-white/10 rounded-lg flex items-center gap-2"
+                  >
+                    <i class="ri-vuejs-line text-green-400"></i>
+                    <span>Vue.js</span>
+                  </div>
+                  <div
+                    class="px-4 py-3 bg-white/10 rounded-lg flex items-center gap-2"
+                  >
+                    <i class="ri-angularjs-line text-red-400"></i>
+                    <span class="line-through">Angular</span>
+                  </div>
+                  <div
+                    class="px-4 py-3 bg-white/10 rounded-lg flex items-center gap-2"
+                  >
+                    <i class="ri-nodejs-line text-green-500"></i>
+                    <span>Node.js</span>
+                  </div>
+                  <div
+                    class="px-4 py-3 bg-white/10 rounded-lg flex items-center gap-2"
+                  >
+                    <i class="ri-database-2-line text-blue-500"></i>
+                    <span>MongoDB</span>
+                  </div>
+                  <div
+                    class="px-4 py-3 bg-white/10 rounded-lg flex items-center gap-2"
+                  >
+                    <i class="ri-database-line text-orange-400"></i>
+                    <span>MySQL</span>
+                  </div>
+                  <div
+                    class="px-4 py-3 bg-white/10 rounded-lg flex items-center gap-2"
+                  >
+                    <i class="ri-firebase-line text-yellow-500 "></i>
+                    <span class="line-through">Firebase</span>
+                  </div>
+                  <div
+                    class="px-4 py-3 bg-white/10 rounded-lg flex items-center gap-2"
+                  >
+                    <i class="ri-github-fill"></i>
+                    <span>Git/GitHub</span>
+                  </div>
+                  <div
+                    class="px-4 py-3 bg-white/10 rounded-lg flex items-center gap-2"
+                  >
+                    <i class="ri-docker-line text-blue-400"></i>
+                    <span>Docker</span>
+                  </div>
+                  <div
+                    class="px-4 py-3 bg-white/10 rounded-lg flex items-center gap-2"
+                  >
+                    <i class="ri-aws-line text-yellow-400"></i>
+                    <span class="line-through">AWS</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+      <!-- Navigation Arrows -->
+      
+      <!-- Navigation Dots -->
+      
+      <!-- Progress Bar -->
+      <div class="progress-bar" id="progressBar" style="width: 25%"></div>
+    </div>
+    <!-- E-Business Card -->
+    <div class="e-card-overlay" id="eCardOverlay"></div>
+    <div class="e-card" id="eCard">
+      <div class="flex justify-between items-center mb-6">
+        <h3 class="text-xl font-semibold">Digital Business Card</h3>
+        <button class="text-gray-400 hover:text-white" id="closeECard">
+          <i class="ri-close-line text-xl"></i>
+        </button>
+      </div>
+      <div class="flex items-center gap-4 mb-6">
+        <div
+          class="w-20 h-20 rounded-full overflow-hidden border-2 border-primary"
+        >
+          <img
+            src="/images/portfolio_coverp.jpg"
+            alt="Joseph Aloyce"
+            class="w-full h-full object-cover"
+          />
+        </div>
+        <div>
+          <h4 class="text-lg font-semibold">Joseph Aloyce</h4>
+          <p class="text-gray-400">Full Stack Developer</p>
+        </div>
+      </div>
+      <div class="space-y-4">
+        <div class="flex items-center gap-3">
+          <i class="ri-mail-line text-primary"></i>
+          <span>josephaloyce402@gmail.com</span>
+        </div>
+        <div class="flex items-center gap-3">
+          <i class="ri-phone-line text-primary"></i>
+          <span>+254 702 766 635</span>
+        </div>
+        <div class="flex items-center gap-3">
+          <i class="ri-map-pin-line text-primary"></i>
+          <span>Juja, Kenya</span>
+        </div>
+        <div class="flex items-center gap-3">
+          <i class="ri-global-line text-primary"></i>
+          <span>www.josephaloyce.dev</span>
+        </div>
+      </div>
+      <div class="mt-6 flex justify-center gap-4">
+       <a href="tel:+254702766635" target="_blank" rel="noopener noreferrer"> <button
+          class="bg-primary hover:bg-opacity-80 text-white px-4 py-2 rounded-button flex items-center gap-2 whitespace-nowrap"
+        >
+          <i class="ri-download-line"></i> Save Contact
+        </button></a>
+        <a href="https://wa.me/919876543210?text=Hi%2C%20I%27m%20interested%20in%20your%20portfolio" target="_blank" rel="noopener noreferrer"><button
+          class="border border-primary text-primary hover:bg-primary hover:text-white px-4 py-2 rounded-button flex items-center gap-2 whitespace-nowrap"
+        >
+          <i class="ri-share-line"></i> Share
+        </button></a>
+      </div>
+    </div>
+
+<script src="/index.js"></script>
+  </body>
+</html>
