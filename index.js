@@ -94,28 +94,28 @@
     // Handle form submission
             const contactForm = document.getElementById("contactForm");
 
-        contactForm.addEventListener("submit", (e) => {
-          e.preventDefault();
-          const formData = new FormData(contactForm);
-          // Here you would typically send the form data to your server
-          console.log("Form submitted:", Object.fromEntries(formData));
-          contactForm.reset();
-          closeContactModal();
+        // contactForm.addEventListener("submit", (e) => {
+        //   e.preventDefault();
+        //   const formData = new FormData(contactForm);
+        //   // Here you would typically send the form data to your server
+        //   console.log("Form submitted:", Object.fromEntries(formData));
+        //   contactForm.reset();
+        //   closeContactModal();
 
-          // Show success message
-          const toast = document.createElement("div");
-          toast.className =
-            "fixed bottom-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50 animate-fade-in-up";
-          toast.textContent = "Message sent successfully!";
-          document.body.appendChild(toast);
+        //   // Show success message
+        //   const toast = document.createElement("div");
+        //   toast.className =
+        //     "fixed bottom-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50 animate-fade-in-up";
+        //   toast.textContent = "Message sent successfully!";
+        //   document.body.appendChild(toast);
 
-          setTimeout(() => {
-            toast.remove();
-          }, 5000);
+        //   setTimeout(() => {
+        //     toast.remove();
+        //   }, 5000);
 
 
           
-        });
+        // });
 
                 const contactModal = document.getElementById("contactModal");
                 function closeContactModal() {
@@ -123,6 +123,38 @@
           document.body.style.overflow = "";
         }
 
+ contactForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  const formData = new FormData(contactForm);
+
+  fetch("https://formsubmit.co/cjdreamy402@gmail.com", {
+    method: "POST",
+    body: formData,
+  })
+    .then((response) => {
+      if (response.ok) {
+        contactForm.reset();
+        closeContactModal();
+
+        const toast = document.createElement("div");
+        toast.className =
+          "fixed bottom-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50 animate-fade-in-up";
+        toast.textContent = "Message sent successfully!";
+        document.body.appendChild(toast);
+
+        setTimeout(() => {
+          toast.remove();
+        }, 5000);
+      } else {
+        alert("Something went wrong. Please try again.");
+      }
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+      alert("Something went wrong.");
+    });
+});
 
     // //<script id="navigation-system">
       // document.addEventListener("DOMContentLoaded", function () {
