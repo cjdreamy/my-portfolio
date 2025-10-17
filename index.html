@@ -8,24 +8,30 @@
     <script src="https://cdn.tailwindcss.com/3.4.16"></script>
     <script>
       tailwind.config = {
-        theme: {
-          extend: {
-            colors: { primary: "#8B5CF6", secondary: "#6366F1" },
-            borderRadius: {
-              none: "0px",
-              sm: "4px",
-              DEFAULT: "8px",
-              md: "12px",
-              lg: "16px",
-              xl: "20px",
-              "2xl": "24px",
-              "3xl": "32px",
-              full: "9999px",
-              button: "8px",
-            },
-          },
-        },
-      };
+  theme: {
+    extend: {
+      colors: {
+        primary: "#8B5CF6",
+        secondary: "#6366F1",
+      },
+      borderRadius: {
+        none: "0px",
+        sm: "4px",
+        DEFAULT: "8px",
+        md: "12px",
+        lg: "16px",
+        xl: "20px",
+        "2xl": "24px",
+        "3xl": "32px",
+        full: "9999px",
+        button: "8px",
+      },
+      fontFamily: {
+        jokerman: ["Jokerman", "cursive"],
+      },
+    },
+  },
+};
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -51,6 +57,12 @@
       #contactModal{
         display:none;
       }
+      @font-face {
+  font-family: 'Jokerman';
+  src: url('fonts/Jokerman.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
       .nav-link::after {
         content: '';
         position: absolute;
@@ -377,7 +389,7 @@
               <i class="ri-close-line text-2xl"></i>
             </button>
             <h3 class="text-2xl font-semibold mb-6">Let's Connect</h3>
-            <form id="contactForm" class="space-y-6">
+            <!-- <form id="contactForm" class="space-y-6">
               <div>
                 <label class="block text-sm font-medium mb-2">Name</label>
                 <input
@@ -411,7 +423,58 @@
               >
                 <i class="ri-send-plane-line"></i> Send Message
               </button>
-            </form>
+            </form> -->
+            <form
+  action="https://formsubmit.co/cjdreamy402@gmail.com"
+  method="POST"
+  id="contactForm"
+  class="space-y-6"
+>
+  <input type="hidden" name="_captcha" value="false" />
+  <input type="hidden" name="_template" value="box" />
+  <input type="hidden" name="_autoresponse" value="Thanks! I'll get back to you soon." />
+
+  <!-- Name -->
+  <div>
+    <label class="block text-sm font-medium mb-2">Name</label>
+    <input
+      type="text"
+      name="name"
+      required
+      class="w-full bg-black/50 border border-white/10 rounded-lg px-4 py-2 focus:outline-none focus:border-primary"
+    />
+  </div>
+
+  <!-- Email -->
+  <div>
+    <label class="block text-sm font-medium mb-2">Email</label>
+    <input
+      type="email"
+      name="email"
+      required
+      class="w-full bg-black/50 border border-white/10 rounded-lg px-4 py-2 focus:outline-none focus:border-primary"
+    />
+  </div>
+
+  <!-- Message -->
+  <div>
+    <label class="block text-sm font-medium mb-2">Message</label>
+    <textarea
+      name="message"
+      rows="4"
+      required
+      class="w-full bg-black/50 border border-white/10 rounded-lg px-4 py-2 focus:outline-none focus:border-primary"
+    ></textarea>
+  </div>
+
+  <!-- Submit -->
+  <button
+    type="submit"
+    class="w-full bg-primary hover:bg-opacity-80 text-white px-6 py-3 rounded-button flex items-center justify-center gap-2"
+  >
+    <i class="ri-send-plane-line"></i> Send Message
+  </button>
+</form>
           </div>
         </div>
       </div>
